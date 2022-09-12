@@ -20,6 +20,7 @@ import java.net.URI;
 @Controller
 //@Controller : 주로 View를 반환
 //@RestController : 주로 Data를 반환 (@Controller+ Method에 @ResponseBody 추가)
+//Generic 명시
 @RequiredArgsConstructor
 public class MemberController {
 
