@@ -39,7 +39,6 @@ public class CrawService {
         Elements titles = doc.select("div.box-contents > a > strong");
         Elements rates = doc.select(".percent span");
         Elements dates = doc.select(".txt-info strong");
-//        Elements likes = doc.select(".count strong>i");
 
         List<CGVmovie> movieList = new ArrayList<>();
         for(int i = 0; i<ranks.size(); i++){
@@ -70,7 +69,7 @@ public class CrawService {
             String base = bases.get(i).text();
 
             Elements details = detailDoc.select("div.sect-story-movie");
-            String detail = details.text().substring(1,20);
+            String detail = details.toString();
 
             String date = dates.get(i).text();
 
@@ -80,7 +79,7 @@ public class CrawService {
 
             movieList.add(cgvMovie);
         }
-
+        System.out.println("크롤링 완료");
         System.out.println(movieList);
 
 
