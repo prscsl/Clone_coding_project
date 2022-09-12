@@ -1,13 +1,30 @@
 package com.sparta.clone.service;
 
+import com.sparta.clone.domain.Member;
+import com.sparta.clone.repository.MemberRepository;
+import com.sparta.clone.security.jwt.JwtTokenProvider;
+import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UtilService {
+    private final MemberRepository memberRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public Member loggedInMember(HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring(7);
+        Claims claims = jwtTokenProvider.tempClaim(token);
+        String memberId= claims.getSubject();
+        Member member = memberRepository.findById(memberId).get();
+        return member;
+    }
 
     public static List<int[]> StringToMatrix(String string){
         //"(1,2)/(14,13)"->Matrix

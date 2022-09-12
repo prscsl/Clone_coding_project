@@ -2,6 +2,7 @@ package com.sparta.clone.controller;
 
 import com.sparta.clone.controller.dto.response.ResponseDto;
 import com.sparta.clone.service.NaverLoginApi;
+import com.sparta.clone.service.UtilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.DocFlavor;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
@@ -22,6 +24,8 @@ import java.net.URI;
 public class MemberController {
 
     private final NaverLoginApi naverLoginApi;
+
+    private final UtilService utilService;
 
 
     // 네이버에서 제공하는 로그인창으로 이동
@@ -46,6 +50,12 @@ public class MemberController {
         UserDetails userDetails = (UserDetails) principal;
 
         return userDetails;
+    }
+
+    //Test 로그인한 유저 정보 조회
+    @GetMapping(value = "/test/auth/member")
+    public @ResponseBody ResponseDto<?> MemberInfo(HttpServletRequest request){
+        return ResponseDto.success(utilService.loggedInMember(request));
     }
 
 

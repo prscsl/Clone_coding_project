@@ -43,8 +43,8 @@ public class Cinema {
     // 춘천
 
     @Column
-    private int num;
-    // 15
+    private int seats;
+    // 135
 
     @Column
     private String cinemaSize;
