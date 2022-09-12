@@ -27,7 +27,7 @@ public class NaverLoginApi {
     private String baseUrl = "https://nid.naver.com/oauth2.0/";
     private String nidMeUrl ="https://openapi.naver.com/v1/nid/me";
     private String authUrl = "authorize?client_id=";
-    private String authUrl2="&response_type=code&redirect_uri=http://localhost:8080/auth/login&state=";
+    private String authUrl2="&response_type=code&redirect_uri=http://localhost:3000/auth/login&state=";
     private String tokenUrlId ="token?client_id=";
     private String tokenUrlSecret = "&client_secret=";
     private String tokenUrlState="&grant_type=authorization_code&state=";

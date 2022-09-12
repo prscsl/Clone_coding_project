@@ -60,6 +60,7 @@ public class TempController {
     public ResponseDto<?> movies(){
         // 영어이름 추가
         // status 추가
+        // 객체로 변경
         ArrayList<String[]> movies = new ArrayList<>();
         String[] temp_movies={"공조2-인터내셔날","61.8%","https://img.cgv.co.kr/Movie/Thumbnail/Poster/000086/86155/86155_320.jpg","94","2022.09.07"};
         String[] temp_movies2={"육사오","8.5%","https://img.cgv.co.kr/Movie/Thumbnail/Poster/000086/86059/86059_320.jpg","94","2022.08.24"};
