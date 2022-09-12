@@ -43,7 +43,7 @@ public class CrawService {
 
         List<CGVmovie> movieList = new ArrayList<>();
         for(int i = 0; i<ranks.size(); i++){
-            if(crawRepository.findByTitle(titles.get(i).text())!=null) {
+            if(crawRepository.findByTitle(titles.get(i).text()).size()!=0) {
                 break;
             }
             String detaild = "http://www.cgv.co.kr"+dtail.get(i).attr("href");
@@ -70,7 +70,7 @@ public class CrawService {
             String base = bases.get(i).text();
 
             Elements details = detailDoc.select("div.sect-story-movie");
-            String detail = details.text();
+            String detail = details.text().substring(1,20);
 
             String date = dates.get(i).text();
 
