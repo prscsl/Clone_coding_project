@@ -38,11 +38,11 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
         // 헤더에서 토큰 꺼내기
         String token = getToken(request);
-        System.out.println("꺼내온 토큰 : "+token);
+       // System.out.println("꺼내온 토큰 : "+token);
 
         // 토큰 존재여부 && 토큰 유효 여부 확인
         if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
-            System.out.println("토큰 존재여부 && 토큰 유효 여부 확인");
+            //System.out.println("토큰 존재여부 && 토큰 유효 여부 확인");
             Claims claims;
             try {
                 claims= jwtTokenProvider.tempClaim(token);
@@ -60,7 +60,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
             // 저장 후 SecurityContextHolder에 담긴 권한
             Authentication temp_auth2=SecurityContextHolder.getContext().getAuthentication();
 
-            System.out.println(temp_auth1+" --필터적용-> "+temp_auth2);
+            // System.out.println(temp_auth1+" --필터적용-> "+temp_auth2);
 
             logger.debug("SecurityContextHolder에 '{}' 인증정보를 저장했습니다, uri: {}",userAuth.getName(),request.getRequestURI());
         }
@@ -73,7 +73,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
     private String getToken(HttpServletRequest request) {
         String accessToken = request.getHeader(AUTHORIZATION_HEADER);
-        System.out.println("Filter에서 받은 토큰 : "+accessToken);
+        //System.out.println("Filter에서 받은 토큰 : "+accessToken);
         if (StringUtils.hasText(accessToken) && accessToken.startsWith(TOKEN_TYPE)) {
             return accessToken.substring(7);
         }

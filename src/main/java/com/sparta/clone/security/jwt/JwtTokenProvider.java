@@ -35,7 +35,7 @@ public class JwtTokenProvider {
 
 
     public String creatToken(Member member){
-        System.out.println(member);
+        // System.out.println(member);
 
         return Jwts.builder()
                 .setSubject(member.getName())
@@ -46,7 +46,7 @@ public class JwtTokenProvider {
 
     public String[] getInfoFromToken(String token){
         Claims claims = tempClaim(token);
-        System.out.println(claims);
+        // System.out.println(claims);
         String authorities = claims.get("auth").toString();
         String name = claims.getSubject();
         String[] infos=new String[2];
