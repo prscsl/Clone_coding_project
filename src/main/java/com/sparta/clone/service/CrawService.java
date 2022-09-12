@@ -69,6 +69,7 @@ public class CrawService {
             String base = bases.get(i).text();
 
             Elements details = detailDoc.select("div.sect-story-movie");
+
             String detail = details.toString();
 
             String date = dates.get(i).text();

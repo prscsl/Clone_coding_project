@@ -1,9 +1,11 @@
 package com.sparta.clone.security.jwt;
 
 import com.sparta.clone.domain.Member;
+import com.sparta.clone.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,11 +22,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-
 public class JwtTokenProvider {
 
     private final Key JWT_KEY;
-
 
     //key 설정
     public JwtTokenProvider(@Value("${jwt.key}")String secretKey){
@@ -38,7 +38,8 @@ public class JwtTokenProvider {
         // System.out.println(member);
 
         return Jwts.builder()
-                .setSubject(member.getName())
+                .setSubject(member.getId())
+                .claim("name",member.getName())
                 .claim("auth",member.getUserRole())
                 .signWith(JWT_KEY, SignatureAlgorithm.HS256)
                 .compact();
@@ -97,4 +98,6 @@ public class JwtTokenProvider {
 
         return false;
     }
+
+
 }

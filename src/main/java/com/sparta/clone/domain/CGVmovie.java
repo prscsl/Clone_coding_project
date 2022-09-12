@@ -3,6 +3,7 @@ package com.sparta.clone.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -53,6 +54,11 @@ public class CGVmovie {
 
     @Column
     private int likes;
+
+
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "movie")
+    private List<Screening> screenings ;
+
 
     public CGVmovie(String rank, String title, String titleEng, String director, String actor, String img, String rate, String genre,  String base, String detail, String date) {
         this.rank = rank;
