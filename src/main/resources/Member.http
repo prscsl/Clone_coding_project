@@ -1,0 +1,12 @@
+### Test
+GET http://localhost:8080/test/auth/info
+Authorization:Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLsoJXrr7zsmrAiLCJhdXRoIjoiUk9MRV9VU0VSIn0.nuNd3FDt152ovuTIXvAabUm6Rd_fIDSC-4OVx01Ab-I
+accept: */*
+
+### Test
+GET http://localhost:8080/test/auth/member
+Authorization:Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJaWHN3ZzdMYTZkVksxTGpVX0JiSGx5RHlVYnVZUHVQdlNBWVFNZTlxN2YwIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.0qGwrvLxYuxqzVOERs6BVMShQVZrVMKp2TdS2KeoOTI
+accept: */*
+
+
+
