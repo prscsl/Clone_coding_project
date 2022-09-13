@@ -16,14 +16,14 @@ public class MovieController {
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public ResponseDto<?> getAllMovies(){return movieService.getAllMovies();}
 
-    @RequestMapping(value = "/movie",method = RequestMethod.GET)
-    public ResponseDto<?> getDetailMovie(@RequestBody MovieRequestDto movieRequestDto){
-        return movieService.getDetailMovie(movieRequestDto);
+    @RequestMapping(value = "/movie{id}",method = RequestMethod.GET)
+    public ResponseDto<?> getDetailMovie(@PathVariable Long id){
+        return movieService.getDetailMovie(id);
     }
 
     @RequestMapping(value = "/movie/like", method = RequestMethod.POST)
-    public ResponseDto<?> likeMovie(@RequestBody MovieRequestDto movieRequestDto, HttpServletRequest request){
-        return movieService.likeMovie(movieRequestDto,request);
+    public ResponseDto<?> likeMovie(@PathVariable Long id, HttpServletRequest request){
+        return movieService.likeMovie(id,request);
     }
 
 
