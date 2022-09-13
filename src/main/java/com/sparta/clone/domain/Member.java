@@ -30,6 +30,6 @@ public class Member {
     private String userRole;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
-    private List<Ticketing> ticketings ;
+    private List<Ticketing> ticketings;
 
 }
