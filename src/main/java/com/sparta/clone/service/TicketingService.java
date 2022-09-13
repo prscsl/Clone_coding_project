@@ -2,7 +2,9 @@ package com.sparta.clone.service;
 
 
 import com.sparta.clone.controller.dto.request.TimeAndSeatDto;
+import com.sparta.clone.controller.dto.request.BuyTicketRequestDto;
 import com.sparta.clone.controller.dto.response.ResponseDto;
+import com.sparta.clone.controller.dto.response.SeatResponseDto;
 import com.sparta.clone.controller.dto.response.TicketingResponseDto;
 import com.sparta.clone.controller.dto.response.TimeAndSeatResponseDto;
 import com.sparta.clone.domain.CGVmovie;
@@ -13,6 +15,7 @@ import com.sparta.clone.repository.CrawRepository;
 import com.sparta.clone.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -38,15 +41,12 @@ public class TicketingService {
 
         // 극장 조회
         List<Cinema> temp_cinemas = cinemaRepository.findAll();
-        List<String> cities = new ArrayList<>();
         List<String> towns = new ArrayList<>();
         for (int i = 0; i < temp_cinemas.size(); i++) {
-            cities.add(temp_cinemas.get(i).getCity());
             towns.add(temp_cinemas.get(i).getTown());
         }
         TicketingResponseDto responseDto = TicketingResponseDto.builder()
                 .movies(movies)
-                .cities(cities)
                 .towns(towns)
                 .build();
         return ResponseDto.success(responseDto);
@@ -55,7 +55,7 @@ public class TicketingService {
     // 영화+극장+날짜 받고 시간 조회
     public ResponseDto<?> timeAndSeat(TimeAndSeatDto timeAndSeatDto,HttpServletRequest request) {
         CGVmovie movie = crawRepository.findByTitle(timeAndSeatDto.getTitle()).get(0);
-        Cinema cinema = cinemaRepository.findByCityAndTown(timeAndSeatDto.getCity(),timeAndSeatDto.getTown()).get();
+        Cinema cinema = cinemaRepository.findByTown(timeAndSeatDto.getTown()).get();
         List<Screening> screenings = screeningRepository.findByMovieAndCinema(movie,cinema);
         List<TimeAndSeatResponseDto> responseDtos=new ArrayList<>();
 
@@ -72,12 +72,34 @@ public class TicketingService {
     }
 
     //좌석 조회
-    public ResponseDto<?> seat(String title, String city, String town, String date, String time){
+    @Transactional
+    public ResponseDto<?> seat(BuyTicketRequestDto buyTicketRequestDto, HttpServletRequest request){
+        CGVmovie movie = crawRepository.findByTitle(buyTicketRequestDto.getTitle()).get(0);
+        Cinema cinema = cinemaRepository.findByTown(buyTicketRequestDto.getTown()).get();
+        List<Screening> screenings = screeningRepository.findByMovieAndCinema(movie,cinema);
+        Screening screening = new Screening();
 
-        return ResponseDto.success("dto");
+        for (int i = 0; i < screenings.size(); i++) {
+            if(screenings.get(i).getDate().equals(buyTicketRequestDto.getTime())){
+                //1차 캐시인지 확인 필요
+                screening=screenings.get(i);
+            }
+        }
+        screening.getBooked();
+        SeatResponseDto seatResponseDto= SeatResponseDto.builder()
+                .maxSeat(screening.getCinema().getSeats())
+                .remainingSeat(screening.getCinema().getSeats())
+                .seatTypeString(screening.getBooked())
+                .seatTypeList(screening.getBooked().split("/"))
+                .build();
+
+        return ResponseDto.success(seatResponseDto);
     }
 
     //티켓구매
+    public ResponseDto<?> buyTicket(){
+        return ResponseDto.success("구매완료");
+    }
 
     //티켓 조회
 }

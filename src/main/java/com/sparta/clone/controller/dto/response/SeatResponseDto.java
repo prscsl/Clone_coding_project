@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @Builder
-public class TicketingResponseDto {
-    private List<String> movies;
-    private List<String> towns;
+public class SeatResponseDto {
+    private int maxSeat;
+    private int remainingSeat;
+    private String seatTypeString;
+    private String[] seatTypeList;
 }
