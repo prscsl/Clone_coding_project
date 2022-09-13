@@ -1,0 +1,14 @@
+### ticketing
+GET http://localhost:8080/auth/ticket
+
+### select
+POST http://localhost:8080/auth/ticket/select
+accept: */*
+Content-Type: application/json
+
+{
+ "title":"공조2-인터내셔날",
+ "city":"강원",
+ "town": "춘천",
+  "date": "20220915"
+}

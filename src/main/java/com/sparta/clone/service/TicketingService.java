@@ -1,6 +1,7 @@
 package com.sparta.clone.service;
 
 
+import com.sparta.clone.controller.dto.request.TimeAndSeatDto;
 import com.sparta.clone.controller.dto.response.ResponseDto;
 import com.sparta.clone.controller.dto.response.TicketingResponseDto;
 import com.sparta.clone.controller.dto.response.TimeAndSeatResponseDto;
@@ -13,6 +14,7 @@ import com.sparta.clone.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class TicketingService {
     private final CinemaRepository cinemaRepository;
     private final ScreeningRepository screeningRepository;
     //영화 극장 조회
-    public ResponseDto<?> movieAndCinema(){
+    public ResponseDto<?> movieAndCinema(HttpServletRequest request){
 
         // 영화 조회
 
@@ -51,14 +53,14 @@ public class TicketingService {
     }
 
     // 영화+극장+날짜 받고 시간 조회
-    public ResponseDto<?> timeAndSeat(String title, String city, String town, String date){
-        CGVmovie movie = crawRepository.findByTitle(title).get(0);
-        Cinema cinema = cinemaRepository.findByCityAndTown(city,town).get();
+    public ResponseDto<?> timeAndSeat(TimeAndSeatDto timeAndSeatDto,HttpServletRequest request) {
+        CGVmovie movie = crawRepository.findByTitle(timeAndSeatDto.getTitle()).get(0);
+        Cinema cinema = cinemaRepository.findByCityAndTown(timeAndSeatDto.getCity(),timeAndSeatDto.getTown()).get();
         List<Screening> screenings = screeningRepository.findByMovieAndCinema(movie,cinema);
         List<TimeAndSeatResponseDto> responseDtos=new ArrayList<>();
 
         for (int i = 0; i < screenings.size(); i++) {
-            if(screenings.get(i).getDate().equals(date)){
+            if(screenings.get(i).getDate().equals(timeAndSeatDto.getDate())){
                 TimeAndSeatResponseDto timeAndSeatResponseDto = TimeAndSeatResponseDto.builder()
                         .time(screenings.get(i).getTime())
                         .seat(screenings.get(i).getCinema().getSeats()-screenings.get(i).getBooked().split(",").length)
