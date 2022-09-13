@@ -16,7 +16,7 @@ public class MovieController {
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public ResponseDto<?> getAllMovies(){return movieService.getAllMovies();}
 
-    @RequestMapping(value = "/movie{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/movie/{id}",method = RequestMethod.GET)
     public ResponseDto<?> getDetailMovie(@PathVariable Long id){
         return movieService.getDetailMovie(id);
     }
