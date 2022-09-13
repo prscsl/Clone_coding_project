@@ -9,6 +9,7 @@ import lombok.Getter;
 @Builder
 public class MovieInfoResponseDto {
 
+    private Long id;
     private String title;
     private String titleEng;
     private String img;

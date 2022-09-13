@@ -38,6 +38,7 @@ public class MemberController {
 
     // call-back URL -> 정보조회 (-> 회원가입) -> 로그인
     @RequestMapping(value = "/auth/login")
+    // ResponseDto 앞에 ResponseBody 추가시 RestController로 시행
     public @ResponseBody ResponseDto<?> naverAuth(@RequestParam String code, @RequestParam String state, HttpServletResponse response){
         // call-back URL 로 올시 code와 state를 파라미터로 반영해서 옴
         return naverLoginApi.login(code,state,response);

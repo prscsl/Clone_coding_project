@@ -52,9 +52,12 @@ public class CGVmovie {
     @Column
     private int status = 2;
 
+    @Column
+    private int likes;
+
+
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "movie")
     private List<Screening> screenings ;
-
 
 
     public CGVmovie(String rank, String title, String titleEng, String director, String actor, String img, String rate, String genre,  String base, String detail, String date) {
@@ -69,5 +72,9 @@ public class CGVmovie {
         this.base = base;
         this.detail = detail;
         this.date = date;
+    }
+
+    public void updateLikes(int num){
+        this.likes = num;
     }
 }
