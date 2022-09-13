@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface HeartRepository extends JpaRepository<CGVmovieHeart, Long> {
-    Optional<CGVmovieHeart> findByRequestIdAndMemberId(Long movieId, String memberId);
+    Optional<CGVmovieHeart> findByTitleEngAndMemberId(String titleEng, String memberId);
 
 }
