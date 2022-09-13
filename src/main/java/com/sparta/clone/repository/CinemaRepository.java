@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface CinemaRepository extends JpaRepository<Cinema, Long> {
+public interface CinemaRepository extends JpaRepository<Cinema, String> {
+    Optional<Cinema> findByTown(String town);
 
-    @Override
-    Optional<Cinema> findById(Long aLong);
-
-   Optional<Cinema> findByCityAndTown(String city, String town);
 }

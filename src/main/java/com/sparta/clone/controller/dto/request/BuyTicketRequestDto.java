@@ -7,8 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class TimeAndSeatDto {
+public class BuyTicketRequestDto {
     private String title;
     private String town;
     private String date;
+    private String time;
 }

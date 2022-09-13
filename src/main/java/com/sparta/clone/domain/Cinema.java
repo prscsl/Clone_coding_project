@@ -31,14 +31,6 @@ public class Cinema {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    // 자동부여
-
-    @Column
-    private String city;
-    // 강원
-
-    @Column
     private String town;
     // 춘천
 
