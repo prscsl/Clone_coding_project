@@ -12,6 +12,7 @@ import com.sparta.clone.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,10 +67,10 @@ public class MovieService {
 
 
     @Transactional
-    public ResponseDto<?> getDetailMovie(MovieRequestDto movieRequestDto) {
+    public ResponseDto<?> getDetailMovie( Long id) {
 
         //보내온 requestDto를 통해 해당 movie 불러오기
-        CGVmovie movie = isPresentCGVmovie(movieRequestDto);
+        CGVmovie movie = isPresentCGVmovie(id);
         if(null == movie){
             return ResponseDto.fail("NOT_FOUND","해당 영화가 존재하지 않습니다");
         }
@@ -96,7 +97,7 @@ public class MovieService {
     }
 
     @Transactional
-    public ResponseDto<?> likeMovie(MovieRequestDto movieRequestDto, HttpServletRequest request){
+    public ResponseDto<?> likeMovie(Long id, HttpServletRequest request){
 
         //토큰이 있는지 확인
         if(null == request.getHeader("Authorization")){
@@ -104,7 +105,7 @@ public class MovieService {
         }
 
         //받은 requestDto를 통해 해당 movie 불러오기
-        CGVmovie movie = isPresentCGVmovie(movieRequestDto);
+        CGVmovie movie = isPresentCGVmovie(id);
         if(null==movie){
             return ResponseDto.fail("NOT_FOUND","해당 영화가 존재하지 않습니다");
         }
@@ -134,8 +135,8 @@ public class MovieService {
 
     //받은 정보로 해당 movie 검증
     @Transactional(readOnly = true)
-    public CGVmovie isPresentCGVmovie(MovieRequestDto movieRequestDto) {
-        Optional<CGVmovie> optionalMovie = crawRepository.findByTitleEng(movieRequestDto.getTitleEng());
+    public CGVmovie isPresentCGVmovie(Long id) {
+        Optional<CGVmovie> optionalMovie = crawRepository.findById(id);
         return optionalMovie.orElse(null);
     }
 
