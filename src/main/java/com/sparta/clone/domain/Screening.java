@@ -39,4 +39,13 @@ public class Screening {
 
     @OneToMany (fetch = FetchType.LAZY, mappedBy = "screening")
     private List<Ticketing> ticketings ;
+
+    public void book(String seat) {
+        if(this.booked.equals("")){
+            this.booked = this.booked+seat;
+        }
+        else {
+            this.booked = this.booked+","+seat;
+        }
+    }
 }
