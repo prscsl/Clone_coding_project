@@ -18,7 +18,7 @@ public class CGVmovieHeart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    //찜하기 한 타이틀 정보
+    //찜하기 한 타이틀 id
     @Column(nullable = false)
     private Long movieId;
 

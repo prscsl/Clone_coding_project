@@ -2,7 +2,6 @@ package com.sparta.clone.service;
 
 
 import com.sparta.clone.domain.Cinema;
-import com.sparta.clone.domain.Member;
 import com.sparta.clone.domain.Screening;
 import com.sparta.clone.repository.CinemaRepository;
 import com.sparta.clone.repository.CrawRepository;
