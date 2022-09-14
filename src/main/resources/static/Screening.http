@@ -63,6 +63,11 @@ Content-Type: application/json
   "town": "춘천",
   "date": "20220915",
   "time" : "12:00",
-  "seat" : "A6,A8",
+  "seat" : "A12,A15",
   "memberCount" : 2
 }
+
+###
+POST http://3.36.70.96:8080/movie/like/20
+accept: */*
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJab01GYXNjcENPNEgwdUQ4QmhfVGNyai1IQ2x6RGdUOTUwQnBWMWluWDJnIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.EGwb8rOT6HuNG6Jy-jzoKeCURQlCNNKrM1yaVVPnaCg
