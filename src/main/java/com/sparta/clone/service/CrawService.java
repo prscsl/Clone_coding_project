@@ -75,10 +75,7 @@ public class CrawService {
             String base = bases.get(i).text();
 
             Elements details = detailDoc.select("div.sect-story-movie");
-
-            //String detail = details.toString();
-            //H2오류용 글자수 줄이기
-            String detail = details.toString().substring(1,20);
+            String detail = details.toString();
 
 
             String date = dates.get(i).text();

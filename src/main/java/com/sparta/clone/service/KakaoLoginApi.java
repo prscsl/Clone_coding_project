@@ -108,15 +108,16 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
         String name = nameValu.substring(1,nameValu.length()-2);
         String genderSplit = String.valueOf(userData.get("kakao_account")).split(":")[2];
         String genderSplit2 = genderSplit.split(",")[0];
-//        String genderSubstring = genderSplit.substring(0,genderSplit.length()-1);
+        String genderSubString = genderSplit2.substring(1,genderSplit2.length()-1);
 
-//        int gender=0;
-//        if (genderSubstring.equals("male")){
-//            gender=1;
-//        }
-//        if (genderSubstring.equals("female")){
-//            gender=2;
-//        }
+
+        int gender=0;
+        if (genderSubString.equals("male")){
+            gender=1;
+        }
+        if (genderSubString.equals("female")){
+            gender=2;
+        }
 //        int birthyear= Integer.valueOf(String.valueOf(userData.get("birthday"));
         int birthyear= 2002;
 
@@ -125,9 +126,9 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
             Member member = Member.builder()
                     .id(id)
                     .name(name)
-                    .gender(1)
+                    .gender(gender)
                     .birthyear(birthyear)
-                    .site(genderSplit2)
+                    .site("kakao")
                     .userRole("ROLE_USER")
                     .build();
             memberRepo.save(member);
