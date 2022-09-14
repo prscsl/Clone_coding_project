@@ -156,6 +156,7 @@ public class NaverLoginApi {
                     .name(name)
                     .gender(gender)
                     .birthyear(birthyear)
+                    .site("naver")
                     .userRole("ROLE_USER")
                     .build();
             memberRepo.save(member);

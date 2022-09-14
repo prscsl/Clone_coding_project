@@ -29,6 +29,9 @@ public class Member {
     @Column
     private String userRole;
 
+    @Column
+    private String site;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Ticketing> ticketings;
 

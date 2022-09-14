@@ -1,6 +1,5 @@
 package com.sparta.clone.service;
 
-
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.nimbusds.jose.shaded.json.parser.JSONParser;
 import com.nimbusds.jose.shaded.json.parser.ParseException;
@@ -9,14 +8,8 @@ import com.sparta.clone.domain.Member;
 import com.sparta.clone.repository.MemberRepository;
 import com.sparta.clone.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,14 +17,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
-
-
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.util.Map;
+
 
 @Service
 @RequiredArgsConstructor
@@ -52,13 +39,13 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
         httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
         //https://kauth.kakao.com/oauth/authorize?client_id=32936f1096342364d3854a2f3015a410&redirect_uri=http://3.36.70.96:8080/auth/kakao
-        //https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=32936f1096342364d3854a2f3015a410&redirect_uri=http://3.36.70.96:8080/auth/kakao
+        //https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=f4190768ed12333a6bf90f3cb94251a1&redirect_uri=http://www.localhost:3000/kakaoloading/
 
         httpConn.setDoOutput(true);
         OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
 
         //카카오 Client id와 프론트에서 받은 code 입력
-        writer.write("grant_type=authorization_code&client_id=32936f1096342364d3854a2f3015a410&code="+code);
+        writer.write("grant_type=authorization_code&client_id=f4190768ed12333a6bf90f3cb94251a1&code="+code);
         writer.flush();
         writer.close();
         httpConn.getOutputStream().close();
@@ -117,23 +104,30 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
     public void signIn(JSONObject userData){
         //id,name,gender,birthyear userData에서 추출하여 입력
         String id = String.valueOf(userData.get("id"));
-        String name = String.valueOf(userData.get("nickname"));
-        int gender=0;
-        if (String.valueOf(userData.get("gender")).equals("male")){
-            gender=1;
-        }
-        if (String.valueOf(userData.get("gender")).equals("bmale")){
-            gender=2;
-        }
-        int birthyear= Integer.valueOf(String.valueOf(userData.get("0000.00.00")));
+        String nameValu = String.valueOf(userData.get("properties")).split(":")[1];
+        String name = nameValu.substring(1,nameValu.length()-2);
+        String genderSplit = String.valueOf(userData.get("kakao_account")).split(":")[2];
+        String genderSplit2 = genderSplit.split(",")[0];
+//        String genderSubstring = genderSplit.substring(0,genderSplit.length()-1);
+
+//        int gender=0;
+//        if (genderSubstring.equals("male")){
+//            gender=1;
+//        }
+//        if (genderSubstring.equals("female")){
+//            gender=2;
+//        }
+//        int birthyear= Integer.valueOf(String.valueOf(userData.get("birthday"));
+        int birthyear= 2002;
 
         //해당 id member 없을경우 member 생성, 아니면 바로 로그인
         if(!memberRepo.existsById(id)){
             Member member = Member.builder()
                     .id(id)
                     .name(name)
-                    .gender(gender)
+                    .gender(1)
                     .birthyear(birthyear)
+                    .site(genderSplit2)
                     .userRole("ROLE_USER")
                     .build();
             memberRepo.save(member);

@@ -117,11 +117,11 @@ public class MovieService {
         }
 
         //유저 정보 및 영화타이틀 정보 포함하여 하트 entity 불러오기
-        CGVmovieHeart heart = isPresentHeart(movie.getTitleEng(), member.getId());
+        CGVmovieHeart heart = isPresentHeart(movie.getId(), member.getId());
 
         // 불러온 하트변수값이 null이면 해당 영화에 로그인한 유저가 찜하기를 안한것으로 하트 정보 저장
         if(null == heart){
-            heartRepository.save(CGVmovieHeart.builder().titleEng(movie.getTitleEng()).memberId(member.getId()).build());
+            heartRepository.save(CGVmovieHeart.builder().movieId(movie.getId()).memberId(member.getId()).build());
         }else{
             heartRepository.delete(heart);
         }
@@ -141,8 +141,8 @@ public class MovieService {
     }
 
     //받은 정보로 해당 heart 검증
-    public  CGVmovieHeart isPresentHeart(String titleEng, String memberId) {
-        Optional<CGVmovieHeart> optionalHeart = heartRepository.findByTitleEngAndMemberId(titleEng,memberId);
+    public  CGVmovieHeart isPresentHeart(Long movieid, String memberId) {
+        Optional<CGVmovieHeart> optionalHeart = heartRepository.findByMovieIdAndMemberId(movieid,memberId);
         return optionalHeart.orElse(null);
     }
 
