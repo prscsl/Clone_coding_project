@@ -2,6 +2,7 @@ package com.sparta.clone.controller;
 
 import com.nimbusds.jose.shaded.json.parser.ParseException;
 import com.sparta.clone.controller.dto.response.ResponseDto;
+import com.sparta.clone.service.MyPageService;
 import com.sparta.clone.service.NaverLoginApi;
 import com.sparta.clone.service.UtilService;
 import com.sparta.clone.service.KakaoLoginApi;
@@ -27,6 +28,7 @@ public class MemberController {
     private final KakaoLoginApi kakaoLoginApi;
 
     private final UtilService utilService;
+    private final MyPageService myPageService;
 
 
 //    // 네이버에서 제공하는 로그인창으로 이동
@@ -66,6 +68,13 @@ public class MemberController {
     @GetMapping(value = "/test/auth/member")
     public @ResponseBody ResponseDto<?> MemberInfo(HttpServletRequest request){
         return ResponseDto.success(utilService.loggedInMember(request));
+    }
+
+
+    //My Page
+    @GetMapping(value = "/user/movielog")
+    public @ResponseBody ResponseDto<?> MyPage(HttpServletRequest request){
+        return myPageService.getMypage(request);
     }
 
 

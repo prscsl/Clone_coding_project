@@ -40,7 +40,7 @@ Content-Type: application/json
 ### buyTicket
 POST http://localhost:8080/auth/ticket/seat/buy
 accept: */*
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJab01GYXNjcENPNEgwdUQ4QmhfVGNyai1IQ2x6RGdUOTUwQnBWMWluWDJnIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.EGwb8rOT6HuNG6Jy-jzoKeCURQlCNNKrM1yaVVPnaCg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJaWHN3ZzdMYTZkVksxTGpVX0JiSGx5RHlVYnVZUHVQdlNBWVFNZTlxN2YwIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.0qGwrvLxYuxqzVOERs6BVMShQVZrVMKp2TdS2KeoOTI
 Content-Type: application/json
 
 {
@@ -55,7 +55,7 @@ Content-Type: application/json
 ### buyTicket2
 POST http://localhost:8080/auth/ticket/seat/buy
 accept: */*
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJab01GYXNjcENPNEgwdUQ4QmhfVGNyai1IQ2x6RGdUOTUwQnBWMWluWDJnIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.EGwb8rOT6HuNG6Jy-jzoKeCURQlCNNKrM1yaVVPnaCg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJaWHN3ZzdMYTZkVksxTGpVX0JiSGx5RHlVYnVZUHVQdlNBWVFNZTlxN2YwIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.0qGwrvLxYuxqzVOERs6BVMShQVZrVMKp2TdS2KeoOTI
 Content-Type: application/json
 
 {
@@ -66,6 +66,10 @@ Content-Type: application/json
   "seat" : "A12,A15",
   "memberCount" : 2
 }
+
+###
+GET http://localhost:8080/user/movielog
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJaWHN3ZzdMYTZkVksxTGpVX0JiSGx5RHlVYnVZUHVQdlNBWVFNZTlxN2YwIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.0qGwrvLxYuxqzVOERs6BVMShQVZrVMKp2TdS2KeoOTI
 
 ###
 POST http://3.36.70.96:8080/movie/like/20
