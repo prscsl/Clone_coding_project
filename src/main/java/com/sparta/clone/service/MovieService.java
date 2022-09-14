@@ -121,7 +121,9 @@ public class MovieService {
 
         // 불러온 하트변수값이 null이면 해당 영화에 로그인한 유저가 찜하기를 안한것으로 하트 정보 저장
         if(null == heart){
-            heartRepository.save(CGVmovieHeart.builder().movieId(movie.getId()).memberId(member.getId()).build());
+            heartRepository.save(CGVmovieHeart.builder()
+                    .movieId(movie.getId()).memberId(member.getId())
+                    .build());
         }else{
             heartRepository.delete(heart);
         }

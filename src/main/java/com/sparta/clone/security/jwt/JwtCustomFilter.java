@@ -41,7 +41,7 @@ public class JwtCustomFilter extends OncePerRequestFilter {
        // System.out.println("꺼내온 토큰 : "+token);
 
         // 토큰 존재여부 && 토큰 유효 여부 확인
-        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
+        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(request)==null) {
             //System.out.println("토큰 존재여부 && 토큰 유효 여부 확인");
             Claims claims;
             try {

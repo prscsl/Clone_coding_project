@@ -68,6 +68,7 @@ public class NaverLoginApi {
     // 네이버에서 제공하는 로그인창 url
     public String makeLoginUrl(){
         String loginUrl = baseUrl+authUrl+ClientId+authUrl2+temp_state;
+        //https://nid.naver.com/oauth2.0/authorize?client_id=43KVChnXUmyM5z9u7el8&response_type=code&redirect_uri=http://localhost:8080/auth/login&state=123
         return loginUrl;
     }
 
