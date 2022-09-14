@@ -22,6 +22,9 @@ public class UtilService {
         String token = request.getHeader("Authorization").substring(7);
         Claims claims = jwtTokenProvider.tempClaim(token);
         String memberId= claims.getSubject();
+        if (memberRepository.findById(memberId)==null){
+            return null;
+        }
         Member member = memberRepository.findById(memberId).get();
         return member;
     }
