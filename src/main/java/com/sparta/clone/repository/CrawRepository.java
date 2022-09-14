@@ -12,4 +12,7 @@ public interface CrawRepository extends JpaRepository<CGVmovie, Long> {
 
     List<CGVmovie> findByTitle(String title);
 
+
+
+    List<CGVmovie> findAllByStatus(int Status);
 }

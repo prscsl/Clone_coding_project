@@ -29,6 +29,7 @@ public class Screening {
 
     @Column
     private String date;
+    //9월 13/14/15
 
     @Column
     private String time;
