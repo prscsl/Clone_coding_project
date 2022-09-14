@@ -28,11 +28,33 @@ public class NaverLoginApi {
     private String nidMeUrl ="https://openapi.naver.com/v1/nid/me";
     private String authUrl = "authorize?client_id=";
     private String authUrl2="&response_type=code&redirect_uri=http://localhost:3000/auth/login&state=";
+    private String authUrl3="&response_type=code&redirect_uri=http://localhost:8080/auth/login&state=";
     private String tokenUrlId ="token?client_id=";
     private String tokenUrlSecret = "&client_secret=";
     private String tokenUrlState="&grant_type=authorization_code&state=";
     private String tokenUrlCode ="&code=";
 
+    /*
+    사이트 접속 (FE)-localhost:3000
+    네이버로그인 버튼 (FE)-localhost:3000
+    네이버 로그인창 (Naver)
+    네이버 로그인 완료
+    네이버 디벨로퍼 계정 콜백 (url -localhost:3000/login)
+    localhost:3000/login?code=123123123123
+      -> controller 쿼리/바디/헤더 ...
+    프론트에서 백 네이버 A-token=123123123123
+
+
+    123123123123+네이버 디벨로퍼 계정 어드민 비밀번호 =>nidMeUrl request(GET)
+
+
+    {
+    id: 정민우
+    생년월일 :
+    이메일 :
+    성별 :
+    }
+     */
     @Value("${spring.security.oauth2.client.registration.naver.client-id}")
     String ClientId;
     @Value("${spring.security.oauth2.client.registration.naver.client-secret}")
@@ -60,6 +82,8 @@ public class NaverLoginApi {
     public ResponseDto<?> login(String code, String state, HttpServletResponse response){
         RestTemplate restTemplate =new RestTemplate(); // 토큰을 발급 받을 URL 초기화
         HttpEntity<?> httpentity = new HttpEntity<>(new HttpHeaders());
+
+
         ResponseEntity<Map> resultMap = restTemplate.exchange(makeAuthUrl(code,state), HttpMethod.GET,httpentity,Map.class); // GET 방식으로 토큰 발급 요청
         String NaverAccessToken=String.valueOf(resultMap.getBody().get("access_token")); // 받은 object를 String으로 변환
         String NaverRefreshToken=String.valueOf(resultMap.getBody().get("refresh_token"));
@@ -94,13 +118,19 @@ public class NaverLoginApi {
     }
 
 
+
+    // BE 시작점
+
     //네이버 로그인 기반 유저 정보 받기
     public Map nidMe(String NaverAccessToken,String NaverTokenType){
         RestTemplate restTemplate = new RestTemplate(); // 정보를 발급 받을 URL 초기화
+
         HttpHeaders headers = new HttpHeaders(); // URL에 보낼 헤더 초기화
         String nidMeHeader=NaverTokenType+" "+NaverAccessToken; // 헤더에 토큰 담기
         headers.set("Authorization",nidMeHeader);
+
         HttpEntity<?> httpEntity = new HttpEntity<>(headers);
+
         ResponseEntity<Map> userInfo = restTemplate.exchange(nidMeUrl,HttpMethod.GET,httpEntity, Map.class); // 정보 발급 요청
         Map userData = (Map) userInfo.getBody().get("response");
         System.out.println(userData.get("id"));
