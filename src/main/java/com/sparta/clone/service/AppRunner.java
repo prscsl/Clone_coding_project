@@ -28,7 +28,6 @@ public class AppRunner implements ApplicationRunner {
 
         if(cinemaRepository.count()==0) {
             Cinema cinema = Cinema.builder()
-                    .city("강원")
                     .town("춘천")
                     .seats(135)
                     .cinemaSize("I15")
@@ -39,7 +38,7 @@ public class AppRunner implements ApplicationRunner {
         if(screeningRepository.count()==0) {
             Screening screening11 = Screening.builder()
                     .movie(crawRepository.findById(1L).get())
-                    .cinema(cinemaRepository.findByCityAndTown("강원","춘천").get())
+                    .cinema(cinemaRepository.findByTown("춘천").get())
                     .date("20220913")
                     .time("12:00")
                     .booked("")
@@ -47,7 +46,7 @@ public class AppRunner implements ApplicationRunner {
             screeningRepository.save(screening11);
             Screening screening21 = Screening.builder()
                     .movie(crawRepository.findById(1L).get())
-                    .cinema(cinemaRepository.findByCityAndTown("강원","춘천").get())
+                    .cinema(cinemaRepository.findByTown("춘천").get())
                     .date("20220914")
                     .time("12:00")
                     .booked("")
@@ -55,7 +54,7 @@ public class AppRunner implements ApplicationRunner {
             screeningRepository.save(screening21);
             Screening screening31 = Screening.builder()
                     .movie(crawRepository.findById(1L).get())
-                    .cinema(cinemaRepository.findByCityAndTown("강원","춘천").get())
+                    .cinema(cinemaRepository.findByTown("춘천").get())
                     .date("20220915")
                     .time("12:00")
                     .booked("")
@@ -63,7 +62,7 @@ public class AppRunner implements ApplicationRunner {
             screeningRepository.save(screening31);
             Screening screening12 = Screening.builder()
                     .movie(crawRepository.findById(1L).get())
-                    .cinema(cinemaRepository.findByCityAndTown("강원","춘천").get())
+                    .cinema(cinemaRepository.findByTown("춘천").get())
                     .date("20220913")
                     .time("15:00")
                     .booked("")
@@ -71,7 +70,7 @@ public class AppRunner implements ApplicationRunner {
             screeningRepository.save(screening12);
             Screening screening22 = Screening.builder()
                     .movie(crawRepository.findById(1L).get())
-                    .cinema(cinemaRepository.findByCityAndTown("강원","춘천").get())
+                    .cinema(cinemaRepository.findByTown("춘천").get())
                     .date("20220914")
                     .time("15:00")
                     .booked("")
@@ -79,7 +78,7 @@ public class AppRunner implements ApplicationRunner {
             screeningRepository.save(screening22);
             Screening screening32 = Screening.builder()
                     .movie(crawRepository.findById(1L).get())
-                    .cinema(cinemaRepository.findByCityAndTown("강원","춘천").get())
+                    .cinema(cinemaRepository.findByTown("춘천").get())
                     .date("20220915")
                     .time("15:00")
                     .booked("")

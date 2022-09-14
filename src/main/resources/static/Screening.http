@@ -8,7 +8,61 @@ Content-Type: application/json
 
 {
  "title":"공조2-인터내셔날",
- "city":"강원",
  "town": "춘천",
   "date": "20220915"
+}
+
+
+### seat
+POST http://localhost:8080/auth/ticket/seat
+accept: */*
+Content-Type: application/json
+
+{
+ "title":"공조2-인터내셔날",
+ "town": "춘천",
+  "date": "20220915",
+  "time" : "12:00"
+}
+
+### seatTest
+POST http://localhost:8080/auth/ticket/seat/test
+accept: */*
+Content-Type: application/json
+
+{
+  "title":"공조2-인터내셔날",
+  "town": "춘천",
+  "date": "20220915",
+  "time" : "12:00"
+}
+
+### buyTicket
+POST http://localhost:8080/auth/ticket/seat/buy
+accept: */*
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJab01GYXNjcENPNEgwdUQ4QmhfVGNyai1IQ2x6RGdUOTUwQnBWMWluWDJnIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.EGwb8rOT6HuNG6Jy-jzoKeCURQlCNNKrM1yaVVPnaCg
+Content-Type: application/json
+
+{
+  "title":"공조2-인터내셔날",
+  "town": "춘천",
+  "date": "20220915",
+  "time" : "12:00",
+  "seat" : "A2,A3",
+  "memberCount" : 2
+}
+
+### buyTicket2
+POST http://localhost:8080/auth/ticket/seat/buy
+accept: */*
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJab01GYXNjcENPNEgwdUQ4QmhfVGNyai1IQ2x6RGdUOTUwQnBWMWluWDJnIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.EGwb8rOT6HuNG6Jy-jzoKeCURQlCNNKrM1yaVVPnaCg
+Content-Type: application/json
+
+{
+  "title":"공조2-인터내셔날",
+  "town": "춘천",
+  "date": "20220915",
+  "time" : "12:00",
+  "seat" : "A6,A8",
+  "memberCount" : 2
 }
