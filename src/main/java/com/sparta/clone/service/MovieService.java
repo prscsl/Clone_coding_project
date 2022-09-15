@@ -99,9 +99,9 @@ public class MovieService {
     @Transactional
     public ResponseDto<?> likeMovie(Long id, HttpServletRequest request){
 
-        //토큰이 있는지 확인
-        if(null == request.getHeader("Authorization")){
-            return ResponseDto.fail("LOGIN_IS_REQUIRED","로그인이 필요합니다.");
+        if(jwtTokenProvider.validateToken(request)!=null){
+            String[] responseMsg=jwtTokenProvider.validateToken(request).split(",");
+            return ResponseDto.fail(responseMsg[0],responseMsg[1]);
         }
 
         //받은 requestDto를 통해 해당 movie 불러오기
@@ -124,13 +124,12 @@ public class MovieService {
             heartRepository.save(CGVmovieHeart.builder()
                     .movieId(movie.getId()).memberId(member.getId())
                     .build());
+            return ResponseDto.success("true");
         }else{
             heartRepository.delete(heart);
+            return ResponseDto.success("false");
         }
         //하트변수가 null아닐시 예전에 찜하기를 한것으로, 찜하기 취소를 위해 저장된 하트 정보 삭제
-
-        return ResponseDto.success("like success");
-
     }
 
 
