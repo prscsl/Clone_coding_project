@@ -10,6 +10,5 @@ import lombok.Getter;
 public class SeatResponseDto {
     private int maxSeat;
     private int remainingSeat;
-    private String seatTypeString;
-    private String[] seatTypeList;
+    private SeatAtoIDto seat;
 }

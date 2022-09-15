@@ -99,9 +99,9 @@ public class MovieService {
     @Transactional
     public ResponseDto<?> likeMovie(Long id, HttpServletRequest request){
 
-        //토큰이 있는지 확인
-        if(null == request.getHeader("Authorization")){
-            return ResponseDto.fail("LOGIN_IS_REQUIRED","로그인이 필요합니다.");
+        if(jwtTokenProvider.validateToken(request)!=null){
+            String[] responseMsg=jwtTokenProvider.validateToken(request).split(",");
+            return ResponseDto.fail(responseMsg[0],responseMsg[1]);
         }
 
         //받은 requestDto를 통해 해당 movie 불러오기
@@ -117,18 +117,19 @@ public class MovieService {
         }
 
         //유저 정보 및 영화타이틀 정보 포함하여 하트 entity 불러오기
-        CGVmovieHeart heart = isPresentHeart(movie.getTitleEng(), member.getId());
+        CGVmovieHeart heart = isPresentHeart(movie.getId(), member.getId());
 
         // 불러온 하트변수값이 null이면 해당 영화에 로그인한 유저가 찜하기를 안한것으로 하트 정보 저장
         if(null == heart){
-            heartRepository.save(CGVmovieHeart.builder().titleEng(movie.getTitleEng()).memberId(member.getId()).build());
+            heartRepository.save(CGVmovieHeart.builder()
+                    .movieId(movie.getId()).memberId(member.getId())
+                    .build());
+            return ResponseDto.success("true");
         }else{
             heartRepository.delete(heart);
+            return ResponseDto.success("false");
         }
         //하트변수가 null아닐시 예전에 찜하기를 한것으로, 찜하기 취소를 위해 저장된 하트 정보 삭제
-
-        return ResponseDto.success("like success");
-
     }
 
 
@@ -141,8 +142,8 @@ public class MovieService {
     }
 
     //받은 정보로 해당 heart 검증
-    public  CGVmovieHeart isPresentHeart(String titleEng, String memberId) {
-        Optional<CGVmovieHeart> optionalHeart = heartRepository.findByTitleEngAndMemberId(titleEng,memberId);
+    public  CGVmovieHeart isPresentHeart(Long movieid, String memberId) {
+        Optional<CGVmovieHeart> optionalHeart = heartRepository.findByMovieIdAndMemberId(movieid,memberId);
         return optionalHeart.orElse(null);
     }
 

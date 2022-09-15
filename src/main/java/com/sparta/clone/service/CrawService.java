@@ -75,10 +75,7 @@ public class CrawService {
             String base = bases.get(i).text();
 
             Elements details = detailDoc.select("div.sect-story-movie");
-
-            //String detail = details.toString();
-            //H2오류용 글자수 줄이기
-            String detail = details.toString().substring(1,20);
+            String detail = details.toString();
 
 
             String date = dates.get(i).text();
@@ -91,8 +88,8 @@ public class CrawService {
             //잘저장되었는지 리스트에 더한 후 출력
             movieList.add(cgvMovie);
         }
-        System.out.println("크롤링 완료");
-        System.out.println(movieList);
+        //System.out.println("크롤링 완료");
+        //System.out.println(movieList);
 
 
 

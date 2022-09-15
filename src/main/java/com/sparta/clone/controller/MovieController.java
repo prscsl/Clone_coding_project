@@ -21,7 +21,7 @@ public class MovieController {
         return movieService.getDetailMovie(id);
     }
 
-    @RequestMapping(value = "/movie/like", method = RequestMethod.POST)
+    @RequestMapping(value = "/movie/like/{id}", method = RequestMethod.POST)
     public ResponseDto<?> likeMovie(@PathVariable Long id, HttpServletRequest request){
         return movieService.likeMovie(id,request);
     }

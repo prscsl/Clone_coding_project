@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class TimeAndSeatDto {
+public class MovieAndCinemaRequestDto {
     private String title;
     private String town;
     private String date;
