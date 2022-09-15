@@ -8,11 +8,8 @@ import java.util.Optional;
 
 public interface CrawRepository extends JpaRepository<CGVmovie, Long> {
 
-    Optional<CGVmovie> findByTitleEng(String titleEng);
 
     List<CGVmovie> findByTitle(String title);
-
-
 
     List<CGVmovie> findAllByStatus(int Status);
 }
