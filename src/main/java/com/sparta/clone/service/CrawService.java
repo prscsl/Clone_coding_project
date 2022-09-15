@@ -88,8 +88,8 @@ public class CrawService {
             //잘저장되었는지 리스트에 더한 후 출력
             movieList.add(cgvMovie);
         }
-        System.out.println("크롤링 완료");
-        System.out.println(movieList);
+        //System.out.println("크롤링 완료");
+        //System.out.println(movieList);
 
 
 

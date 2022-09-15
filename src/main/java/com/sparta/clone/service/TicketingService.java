@@ -111,44 +111,6 @@ public class TicketingService {
         return ResponseDto.success(seatResponseDto);
     }
 
-    @Transactional
-    public ResponseDto<?> seatTest(TimeAndSeatRequestDto timeAndSeatRequestDto, HttpServletRequest request){
-        CGVmovie movie = crawRepository.findByTitle(timeAndSeatRequestDto.getTitle()).get(0);
-        Cinema cinema = cinemaRepository.findByTown(timeAndSeatRequestDto.getTown()).get();
-        List<Screening> screenings = screeningRepository.findByMovieAndCinema(movie,cinema);
-        Screening temp_screening = new Screening();
-        Screening screening = new Screening();
-        ArrayList<Screening> temp_screenings = new ArrayList<>();
-
-        for (int i = 0; i < screenings.size(); i++) {
-            if(screenings.get(i).getDate().equals(timeAndSeatRequestDto.getDate())){
-                //1차 캐시인지 확인 필요
-                temp_screening=screenings.get(i);
-                temp_screenings.add(temp_screening);
-            }
-        }
-        for (int i = 0; i < temp_screenings.size(); i++) {
-            if(temp_screenings.get(i).getTime().equals(timeAndSeatRequestDto.getTime())){
-                screening=temp_screenings.get(i);
-            }
-        }
-        String temp_seat="A3,B13";
-
-        ArrayList<String> temp_stringList=new ArrayList<>();
-        SeatAtoIDto seatAtoIDto=new SeatAtoIDto(temp_stringList,temp_stringList,temp_stringList,temp_stringList,temp_stringList,temp_stringList,temp_stringList,temp_stringList,temp_stringList);
-
-        if(temp_seat!=null) {
-            seatAtoIDto = stringToSeatAtoIDto(temp_seat);
-        }
-        SeatResponseDto seatResponseDto= SeatResponseDto.builder()
-                .maxSeat(screening.getCinema().getSeats()) //최대좌석 수
-                .remainingSeat(screening.getCinema().getSeats()-temp_seat.split(",").length) //남은좌석 수
-                .seat(seatAtoIDto)
-                .build();
-
-        return ResponseDto.success(seatResponseDto);
-    }
-
     //티켓 구매
     @Transactional
     public ResponseDto<?> buyTicket(SelectSeatRequestDto selectSeatRequestDto,HttpServletRequest request){
@@ -208,7 +170,7 @@ public class TicketingService {
 
 
         // 예매 정보 상영 정보에 반영
-        System.out.println(screening.getBooked());
+        //System.out.println(screening.getBooked());
         screening.book(seat);
 
         // 예매 정보 개인 정보에 반영
