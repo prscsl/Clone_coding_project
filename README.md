@@ -1,3 +1,7 @@
-# Clone_coding_project
-Clone_coding_project22
+# CGV 클론 프로젝트
+## 1. 개요
+
+***
+### 
+
 2
