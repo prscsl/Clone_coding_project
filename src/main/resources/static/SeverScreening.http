@@ -1,8 +1,8 @@
 ### ticketing
-GET http://localhost:8080/auth/ticket
+GET http://3.36.70.96:8080/auth/ticket
 
 ### select
-POST http://localhost:8080/auth/ticket/select
+POST http://3.36.70.96:8080/auth/ticket/select
 accept: */*
 Content-Type: application/json
 
@@ -14,7 +14,7 @@ Content-Type: application/json
 
 
 ### seat
-POST http://localhost:8080/auth/ticket/seat
+POST http://3.36.70.96:8080/auth/ticket/seat
 accept: */*
 Content-Type: application/json
 
@@ -25,20 +25,10 @@ Content-Type: application/json
   "time" : "12:00"
 }
 
-### seatTest
-POST http://localhost:8080/auth/ticket/seat/test
-accept: */*
-Content-Type: application/json
 
-{
-  "title":"공조2-인터내셔날",
-  "town": "춘천",
-  "date": "20220915",
-  "time" : "12:00"
-}
 
 ### buyTicket
-POST http://localhost:8080/auth/ticket/seat/buy
+POST http://3.36.70.96:8080/auth/ticket/seat/buy
 accept: */*
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJaWHN3ZzdMYTZkVksxTGpVX0JiSGx5RHlVYnVZUHVQdlNBWVFNZTlxN2YwIiwibmFtZSI6IuygleuvvOyasCIsImF1dGgiOiJST0xFX1VTRVIifQ.0qGwrvLxYuxqzVOERs6BVMShQVZrVMKp2TdS2KeoOTI
 Content-Type: application/json
@@ -48,7 +38,7 @@ Content-Type: application/json
   "town": "춘천",
   "date": "20220915",
   "time" : "12:00",
-  "seat" : "A2,A3",
+  "seat" : "I12,I13",
   "memberCount" : 2
 }
 

@@ -60,7 +60,7 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
         JSONParser jsonParser = new JSONParser();
         Object obj = jsonParser.parse(response);
         JSONObject jsonObj = (JSONObject) obj;
-        System.out.println(jsonObj.get("access_token"));
+        //System.out.println(jsonObj.get("access_token"));
         String token2 = (String) jsonObj.get("access_token");
 
         //요청 보낼 주소 입력
@@ -76,7 +76,7 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
                 : httpConn2.getErrorStream();
         Scanner sc = new Scanner(responseStream2).useDelimiter("\\A");
         String response2 = sc.hasNext() ? sc.next() : "";
-        System.out.println(response2);
+        //System.out.println(response2);
 
         //response2 json로 변환
         Object obj2 = jsonParser.parse(response2);
@@ -95,7 +95,7 @@ public class KakaoLoginApi extends DefaultOAuth2UserService {
 
         // 생성된 토큰 해더에 추가
         httpServletResponse.addHeader("Authorization","Bearer "+accessToken);
-        System.out.println("accesstoken : "+accessToken);
+        //System.out.println("accesstoken : "+accessToken);
 
         String msg = member.getName()+"님 반갑습니다.";
         return ResponseDto.success(msg);

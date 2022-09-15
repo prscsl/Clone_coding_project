@@ -27,7 +27,7 @@ public class NaverLoginApi {
     private String baseUrl = "https://nid.naver.com/oauth2.0/";
     private String nidMeUrl ="https://openapi.naver.com/v1/nid/me";
     private String authUrl = "authorize?client_id=";
-    private String authUrl2="&response_type=code&redirect_uri=http://localhost:3000/auth/login&state=";
+    private String authUrl2="&response_type=code&redirect_uri=http://localhost:3000/auth/naver&state=";
     private String authUrl3="&response_type=code&redirect_uri=http://localhost:8080/auth/login&state=";
     private String tokenUrlId ="token?client_id=";
     private String tokenUrlSecret = "&client_secret=";
@@ -111,7 +111,7 @@ public class NaverLoginApi {
 
         // 생성된 토큰 해더에 추가
         response.addHeader("Authorization","Bearer "+accessToken);
-        System.out.println("accesstoken : "+accessToken);
+        //System.out.println("accesstoken : "+accessToken);
 
         //
         String msg = member.getName()+"님 반갑습니다.";
@@ -134,7 +134,7 @@ public class NaverLoginApi {
 
         ResponseEntity<Map> userInfo = restTemplate.exchange(nidMeUrl,HttpMethod.GET,httpEntity, Map.class); // 정보 발급 요청
         Map userData = (Map) userInfo.getBody().get("response");
-        System.out.println(userData.get("id"));
+        //System.out.println(userData.get("id"));
         return userData;
     }
 
