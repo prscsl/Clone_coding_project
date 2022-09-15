@@ -38,10 +38,7 @@ public class TicketingController {
 
 
     //Test
-    @RequestMapping(value = "auth/ticket/seat/test",method = RequestMethod.POST)
-    public ResponseDto<?> seatTest(@RequestBody TimeAndSeatRequestDto timeAndSeatRequestDto, HttpServletRequest request){
-        return ticketingService.seatTest(timeAndSeatRequestDto,request);
-    }
+
 
     @RequestMapping(value = "auth/ticket/seat/buy",method = RequestMethod.POST)
     public ResponseDto<?> buyTicket(@RequestBody SelectSeatRequestDto selectSeatRequestDto, HttpServletRequest request){
